@@ -78,6 +78,24 @@ CREATE TABLE IF NOT EXISTS sprint(
     ADD CONSTRAINT fk_unit_sprint FOREIGN KEY(unit_id) references unit(uuid);
 );
 
+CREATE TABLE IF NOT EXISTS meeting(
+    uuid TEXT PRIMARY KEY,
+    time time,
+    date date,
+    daily bool default false,
+    meeting_header TEXT,
+    meeting_owner  TEXT,
+    meeting_description TEXT,
+    ADD CONSTRAINT fk_employee FOREIGN KEY(employee_id) references employee(uuid),
+);
+
+CREATE TABLE IF NOT EXISTS invited(
+    meeting_id TEXT,
+    employee_id TEXT
+    ADD CONSTRAINT fk_employee FOREIGN KEY(employee_id) references employee(uuid)
+    ADD CONSTRAINT fk_meeting FOREIGN KEY(meeting_id) references meeting(uuid)
+);
+
 
 
 
