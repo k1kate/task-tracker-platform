@@ -1,5 +1,5 @@
 package com.ekate.backend.service;
-import com.ekate.backend.entity.Database_migration;
+import com.ekate.backend.entity.DatabaseMigration;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.output.MigrateResult;
@@ -15,23 +15,23 @@ public class DBService {
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
-    public synchronized boolean migrate(Database_migration db) {
-        if (dataSource != null) {
+    public synchronized boolean migrate(DatabaseMigration db) {
+        if (this.dataSource != null) {
             return true;
         }
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl(db.getUrl());
-        dataSource.setUsername(db.getUser());
-        dataSource.setPassword(db.getPassword());
-        dataSource.setMaximumPoolSize(5);
-        try(Connection conn = dataSource.getConnection()){
+        HikariDataSource ds = new HikariDataSource();
+        ds.setJdbcUrl(db.getUrl());
+        ds.setUsername(db.getUser());
+        ds.setPassword(db.getPassword());
+        ds.setMaximumPoolSize(5);
+        try(Connection conn = ds.getConnection()){
                 if(!conn.isClosed()) {
                     Flyway flyway = Flyway.configure()
-                            .dataSource(dataSource)
+                            .dataSource(ds)
                             .load();
                     MigrateResult result = flyway.migrate();
 
-                    this.dataSource =dataSource;
+                    this.dataSource =ds;
                     this.jdbcTemplate = new JdbcTemplate(dataSource);
 
                     return result.success;
