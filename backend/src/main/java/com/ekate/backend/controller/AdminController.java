@@ -29,7 +29,6 @@ public class AdminController {
             return ResponseEntity.badRequest().body(new PostResponse(
                     true,"Добавление организации: Успешно"));
         }
-
     }
 
 }

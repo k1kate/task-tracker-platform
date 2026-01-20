@@ -2,8 +2,6 @@ package com.ekate.backend.entity;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
-
 @Data
 public class Organisation {
     private String organisation_name;
