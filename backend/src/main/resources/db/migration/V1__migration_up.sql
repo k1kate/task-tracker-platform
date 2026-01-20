@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS  organization (
       uuid TEXT PRIMARY KEY,
-      organization_name VARCHAR(255) NOT NULL,
+      organization_name VARCHAR(255) NOT NULL UNIQUE,
       setup_complete BOOLEAN NOT NULL DEFAULT FALSE,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()

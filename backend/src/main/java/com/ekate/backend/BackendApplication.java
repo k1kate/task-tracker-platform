@@ -1,6 +1,6 @@
 package com.ekate.backend;
 
-import com.ekate.backend.entity.Database_migration;
+import com.ekate.backend.entity.DatabaseMigration;
 import com.ekate.backend.service.DBService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,8 +31,8 @@ public class BackendApplication {
 
 		if(Files.exists(path)){
 			try {
-				Database_migration db = objectMapper.readValue(path.toFile(),
-						Database_migration.class);
+				DatabaseMigration db = objectMapper.readValue(path.toFile(),
+						DatabaseMigration.class);
 				DBService.migrate(db);
 			}
 
