@@ -1,6 +1,7 @@
 package com.ekate.backend.service;
 
 import com.ekate.backend.entity.Organisation;
+import com.ekate.backend.entity.Unit;
 import com.ekate.backend.repository.AdminRepositoryInterface;
 import com.ekate.backend.repository.queries.Queries;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,6 +27,22 @@ public class AdminService implements AdminRepositoryInterface {
                     organisation.isSetup_complete());
             return "Добавление организации: Успешно";
         }catch (Exception e){
+            return e.toString();
+        }
+    }
+
+    @Override
+    public String saveUnit(Unit unit) {
+        JdbcTemplate db = dbService.jdbc();
+        String uuid = UUID.randomUUID().toString();
+        try{
+            db.update(Queries.createUnit,
+                    unit.getOrganisation_name(),
+                    uuid,
+                    unit.getUnit_name());
+            return "Добавление отдела: Успешно";
+        }
+        catch (Exception e){
             return e.toString();
         }
     }
