@@ -37,7 +37,11 @@ public class DBService {
                     return result.success;
                 }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.err.println("Ошибка подключения к базе: " + e.getMessage());
+            return false;
+        }catch (Exception e){
+            System.err.println("Ошибка миграции: " + e.getMessage());
+            return false;
         }
         return false;
     }
