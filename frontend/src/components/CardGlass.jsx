@@ -1,10 +1,10 @@
 import React from "react";
 import '../styles/setup.css'
 
-function CardGlass() {
+function CardGlass({ children, classname}) {
     return (
-        <div className="glass card-setup">
-            <h2 className="card-title">hello</h2>
+        <div className={`glass card-setup ${classname}`}>
+            {children}
         </div>
     )
 }

@@ -38,8 +38,9 @@ public class MigrationController {
 
            }
            else {
-               return  ResponseEntity.internalServerError().body(new PostResponse(
-                       false,"Ошибка в миграции, Попробуйте заново"));
+               return ResponseEntity.ok().body(
+                       new PostResponse(false, "Ошибка в миграции, Попробуйте заново")
+               );
            }
     }
 

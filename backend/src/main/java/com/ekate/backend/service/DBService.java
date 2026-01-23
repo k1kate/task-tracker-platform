@@ -39,7 +39,7 @@ public class DBService {
         } catch (SQLException e) {
             System.err.println("Ошибка подключения к базе: " + e.getMessage());
             return false;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Ошибка миграции: " + e.getMessage());
             return false;
         }

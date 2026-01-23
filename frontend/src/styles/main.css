@@ -1,0 +1,211 @@
+#root {
+  /*max-width: 1680px;*/
+  margin: auto;
+  /*padding: 2rem;*/
+  text-align: center;
+}
+
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+
+@font-face {
+    font-family: 'Inter';
+    src: url("/fonts/PlayenSans-Medium.otf") format('opentype');
+    font-weight: 400; /* обычный */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Georgia';
+    src: url("/fonts/PATSYSANS.OTF") format('opentype');
+    font-weight: 400; /* обычный */
+    font-style: normal;
+}
+
+
+
+.input-wrapper {
+    position: relative;
+    width: 100%; /* чтобы контейнер растягивался */
+    max-width: 300px; /* можно ограничить ширину */
+}
+
+.card-title {
+    color: #474c52;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    /*text-shadow: 0 2px 5px rgba(0,0,0,0.5);*/
+}
+
+.card-title-2 {
+    color: #474c52;
+    font-weight: 700;
+    /*font-size: 16px;*/
+    font-family: 'Georgia', sans-serif;
+    /*text-shadow: 0 2px 5px rgba(0,0,0,0.5);*/
+}
+
+.fancy-input {
+    width: 360px;
+    padding: 14px 16px 14px 44px; /* место слева под картинку */
+    font-size: 16px;
+    border-radius: 14px;
+    border: 2px solid #e3e6ec;
+    outline: none;
+    background: #ffffff;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+}
+
+/* Анимация при наведении */
+.fancy-input:hover {
+    border-color: #efbfc9;
+}
+
+/* Анимация при фокусе */
+.fancy-input:focus {
+    border-color: #a6c7ea;
+    box-shadow: 0 6px 20px rgba(108, 140, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Placeholder стиль */
+.fancy-input::placeholder {
+    color: #aaa;
+    transition: opacity 0.3s ease;
+}
+
+.fancy-input:focus::placeholder {
+    opacity: 0.4;
+}
+
+.input-wrapper .icon-img {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-60%);
+    width: 20px;   /* размер картинки */
+    height: 20px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container-1 {
+    display: grid;
+    /*grid-template-rows: 30px 50px;*/
+    justify-items: center;
+    width: 550px;
+    /*padding-bottom: 5px;*/
+}
+
+.container-1 .fancy-input{
+    width: 400px;
+    max-width: none;
+}
+
+.container-1 .input-wrapper{
+    width: 463px;
+    max-width: none;
+}
+
+.container-2 {
+    display: flex;
+    flex-direction: column;
+    width: 463px;
+    text-align: start;
+    padding-bottom: 20px;
+    /*display: grid;*/
+    /*grid-template-columns: 430px 50px;*/
+}
+
+.container-3 .card-setup{
+    padding-bottom: 25px;
+}
+
+.container-3 .card-setup span{
+    font-size: 18px;
+}
+
+
+.container-3 .btn-style902 {
+    width: 463px;
+}
+
+
+
+.input-button {
+    width: 50px;   /* квадрат */
+    height: 50px;  /* квадрат */
+    border: none;
+    background-color: #6d94be;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    outline: none;
+}
+
+.input-button:hover, .input-button:focus {
+    background-color: #5c7c9f;
+    outline: none;
+}
+
+.button-img {
+    width: 35px;  /* размер иконки в кнопке */
+    height: 35px;
+}
+
+
+.card-hide {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+
+.card-show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.4s ease;
+}
