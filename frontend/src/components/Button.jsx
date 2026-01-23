@@ -1,14 +1,21 @@
 import React from "react";
 
 
-function Button({text}) {
+function Button({text, onClick}) {
     return (
 
-            <a className="click-btn btn-style902" href="#">
-                <div className="block"><span></span></div>
-                <span data-name="hover">{text}</span>
-                <span data-name="me"></span>
-            </a>
+        <a
+            className="click-btn btn-style902"
+            href="#"
+            onClick={(e) => {
+                e.preventDefault(); // чтобы страница не перезагружалась
+                onClick();
+            }}
+        >
+            <div className="block"><span></span></div>
+            <span data-name="hover">{text}</span>
+            <span data-name="me"></span>
+        </a>
 
     )
 }
