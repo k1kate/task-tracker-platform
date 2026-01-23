@@ -131,14 +131,46 @@
 
 .container-1 {
     display: grid;
-    grid-template-rows: 30px 50px;
-    justify-items: start;
+    /*grid-template-rows: 30px 50px;*/
+    justify-items: center;
+    width: 550px;
+    /*padding-bottom: 5px;*/
+}
+
+.container-1 .fancy-input{
+    width: 400px;
+    max-width: none;
+}
+
+.container-1 .input-wrapper{
+    width: 463px;
+    max-width: none;
 }
 
 .container-2 {
-    display: grid;
-    grid-template-columns: 430px 50px;
+    display: flex;
+    flex-direction: column;
+    width: 463px;
+    text-align: start;
+    padding-bottom: 20px;
+    /*display: grid;*/
+    /*grid-template-columns: 430px 50px;*/
 }
+
+.container-3 .card-setup{
+    padding-bottom: 25px;
+}
+
+.container-3 .card-setup span{
+    font-size: 18px;
+}
+
+
+.container-3 .btn-style902 {
+    width: 463px;
+}
+
+
 
 .input-button {
     width: 50px;   /* квадрат */
