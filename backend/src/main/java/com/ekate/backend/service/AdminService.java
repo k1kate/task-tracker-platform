@@ -1,32 +1,29 @@
 package com.ekate.backend.service;
 
 import com.ekate.backend.entity.Organisation;
-import com.ekate.backend.repository.AdminRepositoryInterface;
-import com.ekate.backend.repository.queries.Queries;
+import com.ekate.backend.entity.Unit;
+import com.ekate.backend.repository.impl.AdminRepositoryImpl;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import java.util.UUID;
+
 
 @Service
-public class AdminService implements AdminRepositoryInterface {
+public class AdminService  {
     private final DBService dbService;
+    private final AdminRepositoryImpl adminRepositoryImpl;
 
-    public AdminService(DBService dbService) {
+    public AdminService(DBService dbService,  AdminRepositoryImpl adminRepositoryImpl) {
         this.dbService = dbService;
+        this.adminRepositoryImpl = adminRepositoryImpl;
     }
 
-    @Override
     public String saveOrganisation(Organisation organisation) {
         JdbcTemplate db = dbService.jdbc();
-        String uuid = UUID.randomUUID().toString();
-        try {
-            db.update(Queries.createOrganisationQuery,
-                    uuid,
-                    organisation.getOrganisation_name() ,
-                    organisation.isSetup_complete());
-            return "Добавление организации: Успешно";
-        }catch (Exception e){
-            return e.toString();
-        }
+        return adminRepositoryImpl.saveOrganisation(organisation,db);
+    }
+
+    public String saveUnit(Unit unit) {
+        JdbcTemplate db = dbService.jdbc();
+        return adminRepositoryImpl.saveUnit(unit,db);
     }
 }

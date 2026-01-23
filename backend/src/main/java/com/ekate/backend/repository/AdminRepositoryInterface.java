@@ -1,9 +1,13 @@
 package com.ekate.backend.repository;
 
 import com.ekate.backend.entity.Organisation;
+import com.ekate.backend.entity.Unit;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface AdminRepositoryInterface {
-    public String saveOrganisation(Organisation organisation);
+
+   String saveOrganisation(Organisation organisation, JdbcTemplate jdbc);
+   String saveUnit(Unit unit,JdbcTemplate jdbc);
 }
