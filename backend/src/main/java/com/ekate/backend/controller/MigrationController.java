@@ -1,7 +1,7 @@
 package com.ekate.backend.controller;
 
 import com.ekate.backend.entity.DatabaseMigration;
-import com.ekate.backend.entity.PostResponse;
+import com.ekate.backend.entity.response.PostResponse;
 import com.ekate.backend.service.DBService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.security.PermitAll;
@@ -27,7 +27,18 @@ public class MigrationController {
     public ResponseEntity<PostResponse> migrate(@RequestBody DatabaseMigration db)
             throws IOException
     {
-           boolean result = DBService.migrate(db);
+        String url,user,password;
+        url = db.getUrl();
+        user = db.getUser();
+        password = db.getPassword();
+
+        if(url.isEmpty() || user.isEmpty() || password.isEmpty()){
+            return ResponseEntity.badRequest().body(
+                    new PostResponse(false, "Ошибка в миграции, введите верные данные")
+            );
+        }
+
+        boolean result = DBService.migrate(db);
            if(result){
                Files.writeString(
                        Path.of("db-config.json"),
@@ -38,7 +49,7 @@ public class MigrationController {
 
            }
            else {
-               return ResponseEntity.ok().body(
+               return ResponseEntity.badRequest().body(
                        new PostResponse(false, "Ошибка в миграции, Попробуйте заново")
                );
            }

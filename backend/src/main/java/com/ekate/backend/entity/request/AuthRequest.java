@@ -1,4 +1,4 @@
-package com.ekate.backend.entity;
+package com.ekate.backend.entity.request;
 
 import lombok.Data;
 

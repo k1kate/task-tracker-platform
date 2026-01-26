@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 
 public interface AdminRepositoryInterface {
-
-   String saveOrganisation(Organisation organisation, JdbcTemplate jdbc);
-   String saveUnit(Unit unit,JdbcTemplate jdbc);
+   String saveOrganisation(Organisation organisation);
+   String saveUnit(Unit unit);
 }

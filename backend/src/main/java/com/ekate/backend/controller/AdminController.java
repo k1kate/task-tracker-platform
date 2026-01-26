@@ -1,6 +1,6 @@
 package com.ekate.backend.controller;
 import com.ekate.backend.entity.Organisation;
-import com.ekate.backend.entity.PostResponse;
+import com.ekate.backend.entity.response.PostResponse;
 import com.ekate.backend.entity.Unit;
 import com.ekate.backend.service.AdminService;
 import jakarta.annotation.security.PermitAll;
@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@PermitAll
+
 @RequestMapping("/api/admin")
 public class AdminController {
     private final AdminService adminService;
 
+    @PermitAll
     @PostMapping("/create/organisation")
     public ResponseEntity<PostResponse> CreateOrganisation(@RequestBody Organisation organisation){
         String result = adminService.saveOrganisation(organisation);
@@ -31,7 +32,7 @@ public class AdminController {
                     true,"Добавление организации: Успешно"));
         }
     }
-
+    @PermitAll
     @PostMapping("/create/unit")
     public ResponseEntity<PostResponse> CreateUnit(@RequestBody Unit unit){
         String result = adminService.saveUnit(unit);

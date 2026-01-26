@@ -11,4 +11,7 @@ public class Queries {
             ")\n" +
             "insert into unit (uuid,unit_name,organization_id ) values (?,?,(select a.uuid from get_organisation_name a))";
 
+    public static final String getByEmail = "select e.*, u.\"unit_name\" from employee e\n" +
+            "left join unit u  on e.unit_id = u.uuid\n" +
+            "where email = ?\n";
 }

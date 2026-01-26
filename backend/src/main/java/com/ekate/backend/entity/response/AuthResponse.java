@@ -1,4 +1,4 @@
-package com.ekate.backend.entity;
+package com.ekate.backend.entity.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,4 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class AuthResponse {
     private String token;
+    private String message;
 }

@@ -1,22 +1,49 @@
 package com.ekate.backend.service;
 import com.ekate.backend.entity.DatabaseMigration;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaxxer.hikari.HikariDataSource;
+import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.output.MigrateResult;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+@Slf4j
 @Service
 public class DBService {
-    private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
+
+    public volatile JdbcTemplate jdbcTemplate;
+    private final ObjectMapper objectMapper;
+
+    public DBService() {
+        this.objectMapper = new ObjectMapper();
+    }
+
+    @PostConstruct
+    public void init(){
+        Path path = Path.of("db-config.json");
+        if (Files.exists(path)) {
+            try {
+                DatabaseMigration db = objectMapper.readValue(
+                        path.toFile(),
+                        DatabaseMigration.class
+                );
+                migrate(db);
+            } catch (Exception e) {
+                log.error("Ошибка инициализации БД", e);
+            }
+        }
+    }
 
     public synchronized boolean migrate(DatabaseMigration db) {
-        if (this.dataSource != null) {
+        if (jdbcTemplate != null) {
             return true;
         }
         HikariDataSource ds = new HikariDataSource();
@@ -31,28 +58,17 @@ public class DBService {
                             .load();
                     MigrateResult result = flyway.migrate();
 
-                    this.dataSource =ds;
-                    this.jdbcTemplate = new JdbcTemplate(dataSource);
-
+                    this.jdbcTemplate = new JdbcTemplate(ds);
                     return result.success;
                 }
         } catch (SQLException e) {
-            System.err.println("Ошибка подключения к базе: " + e.getMessage());
+            log.error("Ошибка подключения к базе" ,e);
             return false;
         } catch (Exception e) {
-            System.err.println("Ошибка миграции: " + e.getMessage());
+            log.error("Ошибка миграции",e);
             return false;
         }
         return false;
     }
-
-    //Будем вызывать для того чтобы получить коннект к бд и делать запросы
-    public JdbcTemplate jdbc() {
-        if (jdbcTemplate == null) {
-            throw new IllegalStateException("DB not initialized");
-        }
-        return jdbcTemplate;
-    }
-
 
 }

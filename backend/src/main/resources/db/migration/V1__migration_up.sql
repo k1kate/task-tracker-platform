@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS employee(
       patronymic  VARCHAR(255),
       employee_sprint_time_capacity time,
       avatar      TEXT,
-      unit_id     TEXT NOT NULL,
+      unit_id     TEXT ,
       password    TEXT NOT NULL,
+      is_admin boolean,
       email       varchar(255) NOT NULL,
       CONSTRAINT fk_unit FOREIGN KEY(unit_id) references unit(uuid)
 );
