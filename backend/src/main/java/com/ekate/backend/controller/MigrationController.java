@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.SQLException;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,8 +26,7 @@ public class MigrationController {
     @PostMapping("/migration")
     @ResponseBody
     public ResponseEntity<PostResponse> migrate(@RequestBody DatabaseMigration db)
-            throws IOException
-    {
+            throws IOException, SQLException {
         String url,user,password;
         url = db.getUrl();
         user = db.getUser();
@@ -48,11 +48,8 @@ public class MigrationController {
                        true,"Миграция выполнена успешно"));
 
            }
-           else {
-               return ResponseEntity.badRequest().body(
-                       new PostResponse(false, "Ошибка в миграции, Попробуйте заново")
-               );
-           }
+
+        return null;
     }
 
 }

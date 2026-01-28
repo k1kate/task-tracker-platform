@@ -10,6 +10,7 @@ import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.sql.SQLException;
 import java.util.Base64;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class EmployeeService {
         this.jwt = jwt;
     }
 
-    public String loginUser(AuthRequest authRequest){
+    public String loginUser(AuthRequest authRequest) throws SQLException {
         Employee employee = userRepository.GetEmployeeByEmail(authRequest);
         if(employee != null) {
             boolean isPasswordCorrect = comparePassword(authRequest.getPassword(), employee.getPassword());

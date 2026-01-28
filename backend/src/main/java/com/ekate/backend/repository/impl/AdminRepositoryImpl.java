@@ -8,6 +8,7 @@ import com.ekate.backend.service.DBService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.UUID;
 
 @Repository
@@ -21,33 +22,28 @@ public class AdminRepositoryImpl implements AdminRepositoryInterface {
     }
 
     @Override
-    public String saveOrganisation(Organisation organisation) {
+    public String saveOrganisation(Organisation organisation) throws SQLException {
         JdbcTemplate jdbc = dbService.jdbcTemplate;
         String uuid = UUID.randomUUID().toString();
-        try {
-            jdbc.update(Queries.createOrganisationQuery,
+
+        jdbc.update(Queries.createOrganisationQuery,
                     uuid,
                     organisation.getOrganisation_name() ,
                     organisation.isSetup_complete());
-            return "Добавление организации: Успешно";
-        }catch (Exception e){
-            return e.toString();
-        }
+        return "Добавление организации: Успешно";
+
     }
 
     @Override
-    public String saveUnit(Unit unit) {
+    public String saveUnit(Unit unit) throws SQLException {
         JdbcTemplate jdbc = dbService.jdbcTemplate;
         String uuid = UUID.randomUUID().toString();
-        try{
-            jdbc.update(Queries.createUnit,
+
+        jdbc.update(Queries.createUnit,
                     unit.getOrganisation_name(),
                     uuid,
                     unit.getUnit_name());
-            return "Добавление отдела: Успешно";
-        }
-        catch (Exception e){
-            return e.toString();
-        }
+        return "Добавление отдела: Успешно";
+
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
+
 @Repository
 public class UserRepositoryImpl implements UserRepositoryInterface {
     private  final DBService dbService;
@@ -19,10 +21,10 @@ public class UserRepositoryImpl implements UserRepositoryInterface {
     }
 
     @Override
-    public Employee GetEmployeeByEmail(AuthRequest authRequest) {
+    public Employee GetEmployeeByEmail(AuthRequest authRequest) throws SQLException {
         JdbcTemplate jdbc = dbService.jdbcTemplate;
-        try{
-            RowMapper<Employee> rowMapper = (rs,rowNum) ->{
+
+        RowMapper<Employee> rowMapper = (rs,rowNum) ->{
                 Employee employee = new Employee();
                 employee.setUuid(rs.getString("uuid"));
                 employee.setName(rs.getString("name"));
@@ -35,11 +37,9 @@ public class UserRepositoryImpl implements UserRepositoryInterface {
                 employee.setPassword(rs.getString("password"));
                 employee.setAdmin(rs.getBoolean("is_admin"));
                 return  employee;
-            };
-            return jdbc.queryForObject(Queries.getByEmail,rowMapper,authRequest.getEmail());
-        }catch (Exception e){
-            return null;
-        }
+        };
+        return jdbc.queryForObject(Queries.getByEmail,rowMapper,authRequest.getEmail());
+
 
     }
 }

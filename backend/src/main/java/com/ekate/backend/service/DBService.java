@@ -42,7 +42,7 @@ public class DBService {
         }
     }
 
-    public synchronized boolean migrate(DatabaseMigration db) {
+    public synchronized boolean migrate(DatabaseMigration db)  throws SQLException{
         if (jdbcTemplate != null) {
             return true;
         }
@@ -61,13 +61,8 @@ public class DBService {
                     this.jdbcTemplate = new JdbcTemplate(ds);
                     return result.success;
                 }
-        } catch (SQLException e) {
-            log.error("Ошибка подключения к базе" ,e);
-            return false;
-        } catch (Exception e) {
-            log.error("Ошибка миграции",e);
-            return false;
         }
+
         return false;
     }
 

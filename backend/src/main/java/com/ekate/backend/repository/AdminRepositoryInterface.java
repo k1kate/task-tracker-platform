@@ -5,8 +5,9 @@ import com.ekate.backend.entity.Unit;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 
 public interface AdminRepositoryInterface {
-   String saveOrganisation(Organisation organisation);
-   String saveUnit(Unit unit);
+   String saveOrganisation(Organisation organisation) throws SQLException;
+   String saveUnit(Unit unit) throws SQLException;
 }

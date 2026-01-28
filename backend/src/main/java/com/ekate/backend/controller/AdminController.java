@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.SQLException;
+
 @Controller
 @RequiredArgsConstructor
 
@@ -18,32 +20,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     private final AdminService adminService;
 
-    @PermitAll
-    @PostMapping("/create/organisation")
-    public ResponseEntity<PostResponse> CreateOrganisation(@RequestBody Organisation organisation){
-        String result = adminService.saveOrganisation(organisation);
 
-        if(!result.equals("Добавление организации: Успешно")){
-            return ResponseEntity.badRequest().body(new PostResponse(
-                    false,result));
-        }
-        else{
-            return ResponseEntity.ok().body(new PostResponse(
+    @PostMapping("/create/organisation")
+    public ResponseEntity<PostResponse> CreateOrganisation(@RequestBody Organisation organisation) throws SQLException {
+        adminService.saveOrganisation(organisation);
+        return ResponseEntity.ok().body(new PostResponse(
                     true,"Добавление организации: Успешно"));
-        }
+
     }
-    @PermitAll
+
     @PostMapping("/create/unit")
-    public ResponseEntity<PostResponse> CreateUnit(@RequestBody Unit unit){
-        String result = adminService.saveUnit(unit);
-        if(!result.equals("Добавление отдела: Успешно")){
-            return ResponseEntity.badRequest().body(new PostResponse(
-                    false,result));
-        }
-        else{
-            return ResponseEntity.ok().body(new PostResponse(
+    public ResponseEntity<PostResponse> CreateUnit(@RequestBody Unit unit) throws SQLException {
+         adminService.saveUnit(unit);
+         return ResponseEntity.ok().body(new PostResponse(
                     true,"Добавление отдела: Успешно"));
-        }
+
     }
 
 }

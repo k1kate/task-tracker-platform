@@ -7,6 +7,8 @@ import com.ekate.backend.repository.impl.AdminRepositoryImpl;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 
 @Service
 public class AdminService  {
@@ -15,10 +17,10 @@ public class AdminService  {
     public AdminService( AdminRepositoryInterface adminRepository) {
         this.adminRepository = adminRepository;
     }
-    public String saveOrganisation(Organisation organisation) {
+    public String saveOrganisation(Organisation organisation) throws SQLException {
         return adminRepository.saveOrganisation(organisation);
     }
-    public String saveUnit(Unit unit) {
+    public String saveUnit(Unit unit) throws SQLException {
         return adminRepository.saveUnit(unit);
     }
 }
