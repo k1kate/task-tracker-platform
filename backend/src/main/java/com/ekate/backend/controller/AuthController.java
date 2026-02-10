@@ -3,6 +3,7 @@ package com.ekate.backend.controller;
 import com.ekate.backend.entity.request.AuthRequest;
 import com.ekate.backend.entity.response.AuthResponse;
 import com.ekate.backend.entity.response.PostResponse;
+import com.ekate.backend.error.BadRequestException;
 import com.ekate.backend.security.JwtUtil;
 import com.ekate.backend.service.DBService;
 import com.ekate.backend.service.EmployeeService;
@@ -24,22 +25,16 @@ import java.sql.SQLException;
 @PermitAll
 @RequestMapping("api/auth")
 public class AuthController {
-    private final AuthenticationManager authManager;
-    private final JwtUtil jwtUtil;
     private final EmployeeService employeeService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest request) throws SQLException {
-
+    public ResponseEntity<?> login(@RequestBody AuthRequest request) throws SQLException, BadRequestException {
         String token = employeeService.loginUser(request);
         if (token.isEmpty()){
-            return ResponseEntity.badRequest().body(new AuthResponse(
-                    "","Не верено введен email или пароль"));
+            throw new BadRequestException("Не верено введен email или пароль");
         }
         else {
-            return ResponseEntity.ok().body(new AuthResponse(
-                    token,""));
+            return ResponseEntity.ok().body(new AuthResponse(token));
         }
     }
-
 }

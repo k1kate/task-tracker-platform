@@ -29,12 +29,9 @@ public class EmployeeService {
         Employee employee = userRepository.GetEmployeeByEmail(authRequest);
         if(employee != null) {
             boolean isPasswordCorrect = comparePassword(authRequest.getPassword(), employee.getPassword());
-            if (isPasswordCorrect) {
-                return jwt.generateToken(employee.getUuid());
-            } else {
-                return "";
-            }
+            if (isPasswordCorrect) return jwt.generateToken(employee.getUuid(),employee.isAdmin());
         }
+
         return "";
     }
 
